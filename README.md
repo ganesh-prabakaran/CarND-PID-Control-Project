@@ -20,6 +20,8 @@ In this project, all the parameters were tuned manually. There are other approac
 First I started with P controller where I set Ki and Kd values to 0 and located an optimal Kp value where the oscillates and settles over a time. Then, I added Kd to introduce dampening to mitigate the oscillation. However, I still found issues in the curves where the turn was too late and I used the Ki to improve the control of the car. Below are the final values 
 Kp : 0.24 , Ki : 0.0004 , Kd :4.5 , throttle : 0.3 
 
+[Link to Output Video of PID controller](https://youtu.be/r32rVirsbOA)
+
 ## Dependencies
 
 * cmake >= 3.5

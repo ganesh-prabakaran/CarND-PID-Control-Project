@@ -1,6 +1,23 @@
 # CarND-Controls-PID
 Self-Driving Car Engineer Nanodegree Program
 
+## PID Controller
+A PID (proportional–integral–derivative) controller is a control loop feedback mechanism widely used in industrial control systems / applications requiring continuosly modulated control. The controller continuously calculates the error value. With respect to this carnd project, this is known as cross-track error (cte) which indicates the distance between the actual car position on the road and the reference trajectory. The controller in turn use this error information to generate an output (steering angle of the car) with an objective to minimize the cte.
+
+###P - proportional gain
+The proportional term denotes an output that is proportional to the cte. P controller (instead of PID) has the drawback of oscillating around the desired value. The proportional gain generates the control output (steering angle) which is -Kp times proportaional gain, where Kp is a positive constant.
+
+###D - differential gain
+The osciallation problem with the P controller can be addressed using a differential gain which is the difference between the current and past cte. Differential gain is added -Kd times to generate the steering angle of the PI controller where Kd is a positive constant. 
+
+###I - integral gain
+A typical PI controller has a potential problem in terms of bias/residual error. The integral term seeks to eliminate the residual error by adding a control effect due to the historic cumulative value of the error. When the error is eliminated, the integral term will cease to grow. This will result in the proportional effect diminishing as the error decreases, but this is compensated for by the growing integral effect. With respect to this project, this term is more about contributing corrections in the curves. Integral gain is added -Ki times to generate the steering angle  where Ki is a positive constant.
+ 
+
+###Hyper Parameter tuning
+In this project, all the parameters were tuned manually. There are other approaches like twiddle mentioned in the class, however, I prefered this approach to have a complete understanding on the effect of tuning each parameter and also due to the slowness of the machine I used for this project. Though I did manually, I simply followed a brute force approach taking some leaf out of the twiddle. I calculated the Total Error after each lap and accordingly adjusted the Kp, Kd and Ki and finally arrived at a value which driven smoothly in the entire lap.
+
+First I started with P controller where I set Ki and Kd values to 0 and located an optimal Kp value where the oscillates and settles over a time. Then, I added Kd to introduce dampening to mitigate the oscillation. However, I still found issues in the curves where the turn was too late and I used the Ki to improve the control of the car. 
 ---
 
 ## Dependencies
@@ -34,65 +51,3 @@ There's an experimental patch for windows in this [PR](https://github.com/udacit
 2. Make a build directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
 4. Run it: `./pid`. 
-
-Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
-
-## Editor Settings
-
-We've purposefully kept editor configuration files out of this repo in order to
-keep it as simple and environment agnostic as possible. However, we recommend
-using the following settings:
-
-* indent using spaces
-* set tab width to 2 spaces (keeps the matrices in source code aligned)
-
-## Code Style
-
-Please (do your best to) stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
-
-## Project Instructions and Rubric
-
-Note: regardless of the changes you make, your project must be buildable using
-cmake and make!
-
-More information is only accessible by people who are already enrolled in Term 2
-of CarND. If you are enrolled, see [the project page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/f1820894-8322-4bb3-81aa-b26b3c6dcbaf/lessons/e8235395-22dd-4b87-88e0-d108c5e5bbf4/concepts/6a4d8d42-6a04-4aa6-b284-1697c0fd6562)
-for instructions and the project rubric.
-
-## Hints!
-
-* You don't have to follow this directory structure, but if you do, your work
-  will span all of the .cpp files here. Keep an eye out for TODOs.
-
-## Call for IDE Profiles Pull Requests
-
-Help your fellow students!
-
-We decided to create Makefiles with cmake to keep this project as platform
-agnostic as possible. Similarly, we omitted IDE profiles in order to we ensure
-that students don't feel pressured to use one IDE or another.
-
-However! I'd love to help people get up and running with their IDEs of choice.
-If you've created a profile for an IDE that you think other students would
-appreciate, we'd love to have you add the requisite profile files and
-instructions to ide_profiles/. For example if you wanted to add a VS Code
-profile, you'd add:
-
-* /ide_profiles/vscode/.vscode
-* /ide_profiles/vscode/README.md
-
-The README should explain what the profile does, how to take advantage of it,
-and how to install it.
-
-Frankly, I've never been involved in a project with multiple IDE profiles
-before. I believe the best way to handle this would be to keep them out of the
-repo root to avoid clutter. My expectation is that most profiles will include
-instructions to copy files to a new location to get picked up by the IDE, but
-that's just a guess.
-
-One last note here: regardless of the IDE used, every submitted project must
-still be compilable with cmake and make./
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
-

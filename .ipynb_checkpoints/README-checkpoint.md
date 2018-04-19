@@ -18,7 +18,7 @@ A typical PI controller has a potential problem in terms of bias/residual error.
 In this project, all the parameters were tuned manually. There are other approaches like twiddle mentioned in the class, however, I prefered this approach to have a complete understanding on the effect of tuning each parameter and also due to the slowness of the machine I used for this project. Though I did manually, I simply followed a brute force approach taking some leaf out of the twiddle. I calculated the Total Error after each lap and accordingly adjusted the Kp, Kd and Ki and finally arrived at a value which driven smoothly in the entire lap.
 
 First I started with P controller where I set Ki and Kd values to 0 and located an optimal Kp value where the oscillates and settles over a time. Then, I added Kd to introduce dampening to mitigate the oscillation. However, I still found issues in the curves where the turn was too late and I used the Ki to improve the control of the car. 
-
+---
 
 ## Dependencies
 
